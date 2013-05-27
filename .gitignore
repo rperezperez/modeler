@@ -18,4 +18,5 @@ kepler/
 sql/
 utilidades/
 \.idea/
+run_modelo/run_modelo.rb
 

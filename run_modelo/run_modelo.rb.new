@@ -2,7 +2,7 @@ require 'config/environment.rb'
 
 ### Usuario Kepler del SO para ejecutar los modelos
 user_kepler = 'kepler'
-password_kepler = 'mA_MqaK3'
+password_kepler = 'password'
 
 ### Configuración de Kepler
 path_kepler = '/apps/compartido/utils/kepler_2.2/kepler.sh'
