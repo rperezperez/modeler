@@ -1,0 +1,9 @@
+<h3>Nuevo Tema</h3>
+
+<% form_tag({:action => 'create'}, {:id => 'comment-form'}) do %>
+  <%= render :partial => 'form' %>
+  <%= submit_tag "Guardar tema" %>
+<% end %>
+<br/>
+<br/>
+<%= link_to 'Ver blog', :controller => 'temas', :action => 'blog' %>

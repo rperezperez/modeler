@@ -1,0 +1,6 @@
+<div id="update">
+
+</div>
+				<%= periodically_call_remote(:update => 'update',
+:url => { :action => :ejecucion, :key => @nueva_clave},
+:frequency => 2 )%>

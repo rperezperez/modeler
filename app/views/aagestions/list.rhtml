@@ -1,0 +1,47 @@
+	<% prefijo = controller.controller_name+"_"+controller.action_name+"_"+(rand()*100).to_i.to_s %>
+	<% controlador = 'aagestions' %>
+
+<h1>Listado de A. de Gesti&oacute;n</h1>
+
+<a href="#" onclick="mostrarDireccion('<%= prefijo%>','-1', '<%= url_for :controller => controlador, :action => 'new' %>/');">Nuevo A. Gesti&oacute;n</a>
+<div id="<%= prefijo %>_div_id_-1"></div>
+<table id="<%= prefijo %>_la_tabla" class="tabla_datos" cellspacing="0" cellpadding="0">
+  <tr >
+    <th class="barra_cabecera">Descripcion</th>
+    <th class="barra_cabecera" colspan="3">Opciones</th>
+  </tr>
+
+	<% clase = 0 %>
+
+<% for ientrada in @aagestions %>
+  <tr id="<%= prefijo %>_tr_id_<%= ientrada.id.to_s %>">
+    <% clase = clase % 2 %>
+    <td class="barra_activa_<%= clase.to_s %>" id="descripcion_id_<%= ientrada.id.to_s %>"><%=h ientrada.descripcion %></td>
+
+    <td class="barra_activa_<%= clase.to_s %>">
+    <a href="#" onclick="mostrarDireccion('<%= prefijo%>','<%= ientrada.id.to_s %>', '<%= url_for :controller => controlador, :action => 'show' %>/');">Mostrar</a></td>
+    <td class="barra_activa_<%= clase.to_s %>">
+
+	<% if current_user.is_admin %>
+	    <a href="#" onclick="mostrarDireccion('<%= prefijo%>','<%= ientrada.id.to_s %>', '<%= url_for :controller => controlador, :action => 'edit' %>/');">Modificar</a>
+	<% end %>
+
+    </td>
+    <td class="barra_activa_<%= clase.to_s %>">
+
+	<% if current_user.is_admin %>
+	    <%= link_to 'Eliminar', { :controller => controlador, :action => 'destroy', :id => ientrada }, :confirm => 'Estas seguro?', :method => :post %>
+	<% end %>
+
+    </td>
+    <% clase = clase +1 %>
+  </tr>
+  <tr><td colspan="10" style=""><div style="display: none;" id="<%= prefijo %>_div_id_<%= ientrada.id.to_s %>"></div></td></tr>
+
+  <tr>
+<% end %>
+</table>
+
+<%= will_paginate @aagestions %>
+
+<br />

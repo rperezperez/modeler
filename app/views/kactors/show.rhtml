@@ -1,0 +1,14 @@
+
+<div class="barra">
+	<div class="barra_cerrar" onclick="javascript:cerrar();"><a href="#" class="barra_enlace">Cerrar</a></div>
+</div>
+
+<% for column in Kactor.content_columns %>
+<p>
+  <b><%= column.human_name %>:</b> <%=h @kactor.send(column.name) %>
+</p>
+<% end %>
+
+<div class="barra">
+	<div class="barra_cerrar" onclick="javascript:cerrar();"><a href="#" class="barra_enlace">Cerrar</a></div>
+</div>

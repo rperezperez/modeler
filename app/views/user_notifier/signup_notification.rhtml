@@ -1,0 +1,9 @@
+Su cuenta ha sido creada:
+
+  Usuario: <%= @user.login %>
+  Password: <%= @user.password %>
+
+Visite este enlace para activar su cuenta:
+
+
+  <%= url_for(:controller => 'account', :action => 'activate', :id => @user.activation_code, :only_path => false) %>

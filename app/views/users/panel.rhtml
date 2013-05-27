@@ -1,0 +1,51 @@
+	<% prefijo = controller.controller_name+"_"+controller.action_name+"_"+(rand()*1000).to_i.to_s %>
+
+<h1>Panel de administraci&oacute;n</h1>
+
+<table id="<%= prefijo %>_la_tabla" class="tabla_datos" cellspacing="0" cellpadding="0">
+
+  <tr>
+    <th class="barra_cabecera">Operación</th>
+  </tr>
+
+  <tr>
+    <td class="barra_activa_0"><%= link_to "&Aacute;mbitos de gesti&oacute;n", :controller=> 'aagestions', :action => 'list' %></td>
+  </tr>
+  <tr>
+    <td class="barra_activa_1"><%= link_to "&Aacute;mbitos de aplicaci&oacute;n", :controller=> 'aambitos', :action => 'list' %></td>
+  </tr>
+  <tr>
+    <td class="barra_activa_0"><%= link_to "&Aacute;reas Objetivos", :controller=> 'aaobjetivos', :action => 'list' %></td>
+  </tr>
+  <tr>
+    <td class="barra_activa_1"><%= link_to "Aplicaciones", :controller=> 'aaplicacions', :action => 'list' %></td>
+  </tr>
+  <tr>
+    <td class="barra_activa_0"><%= link_to "Autores", :controller=> 'autors', :action => 'list' %></td>
+  </tr>
+  <tr>
+    <td class="barra_activa_1"><%= link_to "Ayuda", :controller=> 'ayudas', :action => 'list' %></td>
+  </tr>
+  <tr>
+    <td class="barra_activa_0"><%= link_to "Bibliograf&iacute;a", :controller=> 'bibliografias', :action => 'list' %></td>
+  </tr>
+  <tr>
+    <td class="barra_activa_1"><%= link_to "Limitaciones", :controller=> 'limitacions', :action => 'list' %></td>
+  </tr>
+  <tr>
+    <td class="barra_activa_0"><%= link_to "Temas", :controller=> 'temas', :action => 'list' %></td>
+  </tr>
+  <tr>
+    <td class="barra_activa_1"><%= link_to "Historial Ejecuciones", :controller=> 'ejecucion', :action => 'list' %></td>
+  </tr>
+
+	<% if current_user.is_admin? %>
+  <tr>
+    <td class="barra_activa_0"><%= link_to "Fuentes externas del repositorio", :controller=> 'externalsources', :action => 'list' %></td>
+  </tr>
+	<% end %>
+
+</table>
+
+<br />
+

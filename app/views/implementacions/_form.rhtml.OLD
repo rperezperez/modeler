@@ -1,0 +1,158 @@
+ <%= javascript_include_tag "stereotabs" %>
+
+<script type="text/javascript">
+	Event.observe(window, 'load', loadTabs, false);
+	function loadTabs() {
+		var tabs = new tabset('container'); // name of div to crawl for tabs and panels
+		tabs.autoActivate($('tab_first')); // name of tab to auto-select if none exists in the url
+	}
+</script>
+
+<%= error_messages_for 'implementacion' %>
+<!--[form:implementacion]-->
+
+<div id="container" class="tab">
+<ul id="tabnav">
+  <a href="#first" id="tab_first" class="tab selected">Generales</a>
+  <a href="#second" id="tab_second" class="tab">C&oacute;digo Fuente</a>
+  <a href="#third" id="tab_third" class="tab">Limitaciones y Tutorial</a>
+  <a href="#cuarto" id="tab_cuarto" class="tab">Administraci&oacute;n</a>
+  <% if controller.action_name != 'new' %>
+	  <a href="#ientradas" id="tab_ientradas" class="tab">Entradas</a>
+	  <a href="#parametros" id="tab_parametros" class="tab">Par&aacute;metros</a>
+	  <a href="#isalidas" id="tab_isalidas" class="tab">Salida</a>
+  <% else %>
+  	  <a href="#guarda" id="tab_guarda" class="tab">Entradas</a>
+  	  <a href="#guarda" id="tab_guarda" class="tab">Par&aacute;metros</a>
+  	  <a href="#guarda" id="tab_guarda" class="tab">Salida</a>
+  <% end %>
+</ul>
+
+<div id="panel_first" class="panel">
+<p><label for="implementacion_nombre">Nombre</label><br/>
+<%= text_field_ayuda 'implementacion', 'nombre'  %></p>
+
+<p><label for="implementacion_descarga">Descripci&oacute;n</label><br/>
+<%= text_area_ayuda 'implementacion', 'resumen'  %></p>
+
+<p><label for="implementacion_descarga">Enlace de Descarga</label><br/>
+<%= text_field_ayuda 'implementacion', 'descarga'  %></p>
+
+<p><label for="implementacion_version">Versi&oacute;n</label><br/>
+<%= text_field_ayuda 'implementacion', 'version'  %></p>
+
+<p><label for="implementacion_tipo">Tipo de Implementaci&oacute;n</label><br/>
+<%= text_field_ayuda 'implementacion', 'tipo'  %></p>
+</div>
+
+<div id="panel_second" class="panel">
+
+<p><label for="implementacion_c_descarga">Descarga</label><br/>
+<%= text_field_ayuda 'implementacion', 'c_descarga'  %></p>
+
+<p><label for="implementacion_c_version">Versi&oacute;n</label><br/>
+<%= text_field_ayuda 'implementacion', 'c_version'  %></p>
+
+<p><label for="implementacion_c_lenguaje">Lenguaje</label><br/>
+<%= text_area_ayuda 'implementacion', 'c_lenguaje'  %></p>
+
+<p><label for="implementacion_c_bloques">Descripci&oacute;n bloques</label><br/>
+<%= text_area_ayuda 'implementacion', 'c_bloques'  %></p>
+
+<p><label for="implementacion_c_path1">Fichero 1</label><br/>
+<%= file_column_field_ayuda @implementacion, "c_path1", "implementacion" %>
+
+<p><label for="implementacion_c_path2">Fichero 2</label><br/>
+<%= file_column_field_ayuda @implementacion, "c_path2", "implementacion" %></p>
+
+</div>
+
+<div id="panel_third" class="panel">
+
+<p><label for="implementacion_plataforma">Plataforma</label><br/>
+<%= text_field_ayuda 'implementacion', 'plataforma'  %></p>
+
+<p><label for="implementacion_licencia">Licencia</label><br/>
+<%= text_field_ayuda 'implementacion', 'licencia'  %></p>
+
+<p><label for="implementacion_r_software">Requerimientos software</label><br/>
+<%= text_area_ayuda 'implementacion', 'r_software'  %></p>
+
+<p><label for="implementacion_r_hardware">Requerimientos hardware</label><br/>
+<%= text_area_ayuda 'implementacion', 'r_hardware'  %></p>
+
+<p><label for="implementacion_limitaciones">Limitaciones</label><br/>
+<%= text_area_ayuda 'implementacion', 'limitaciones'  %></p>
+
+<p><label for="implementacion_bugs">Bugs</label><br/>
+<%= text_area_ayuda 'implementacion', 'bugs'  %></p>
+
+<p><label for="implementacion_t_ejecucion">Tutorial ejecuci&oacute;n</label><br/>
+<%= file_column_field_ayuda @implementacion, "t_ejecucion", "implementacion" %>
+</p>
+
+</div>
+
+
+<div id="panel_cuarto" class="panel">
+
+<p><label for="implementacion_created_at">Creado el</label><br/>
+<%= datetime_select 'implementacion', 'created_at'  %></p>
+
+<p><label for="implementacion_updated_at">Actualizado el</label><br/>
+<%= datetime_select 'implementacion', 'updated_at'  %></p>
+
+<p><label for="implementacion_kepler_servidor_xml">Kepler servidor xml</label><br/>
+<%= file_column_field_ayuda @implementacion, "kepler_servidor_xml", "implementacion" %>
+</p>
+
+<p><label for="implementacion_kepler_servidor_tar">Kepler servidor tar</label><br/>
+<%= file_column_field_ayuda @implementacion, "kepler_servidor_tar", "implementacion" %>
+<!--[eoform:implementacion]-->
+
+<p><label for="implementacion_kepler_cliente_xml">Kepler Cliente xml</label><br/>
+<%= file_column_field_ayuda @implementacion, "kepler_cliente_xml", "implementacion" %>
+<!--[eoform:implementacion]-->
+
+</div>
+
+
+<div id="panel_ientradas" class="panel">
+
+<!-- <iframe class="ventana" width='100%' height='100%' src="<%= url_for :controller => 'ientradas', :action => 'listado', :id => @implementacion.id, :nuevo => true %>" -->
+
+<%= render :partial => 'ientradas/listado_ientrada', :locals => {:ientradas => @implementacion.ientradas, :id => @implementacion.id, :nombre => @implementacion.nombre, :nuevo => true} %>
+
+<%= render :partial => 'kactors/listado_implementacion', :locals => {:ikeplers => @implementacion.ikeplers.find_all_by_tipo("entrada"), :id => @implementacion.id, :nombre => @implementacion.nombre, :nuevo => true, :tipo => 'entrada'} %>
+
+</div>
+
+<div id="panel_parametros" class="panel">
+
+<!-- <iframe class="ventana" width='100%' height='100%' src="<%= url_for :controller => 'ientradas', :action => 'listado', :id => @implementacion.id, :nuevo => true %>" -->
+
+<%= render :partial => 'iparametros/listado_iparametro', :locals => {:ientradas => @implementacion.iparametros, :id => @implementacion.id, :nombre => @implementacion.nombre, :nuevo => true} %>
+
+</div>
+
+<div id="panel_isalidas" class="panel">
+
+<!-- <iframe class="ventana" width='100%' height='100%' src="<%= url_for :controller => 'ientradas', :action => 'listado', :id => @implementacion.id, :nuevo => true %>" -->
+
+<%= render :partial => 'ientradas/listado_isalida', :locals => {:ientradas => @implementacion.isalidas, :id => @implementacion.id, :nombre => @implementacion.nombre, :nuevo => true} %>
+
+<%= render :partial => 'kactors/listado_implementacion', :locals => {:ikeplers => @implementacion.ikeplers.find_all_by_tipo("salida"), :id => @implementacion.id, :nombre => @implementacion.nombre, :nuevo => true, :tipo => 'salida'} %>
+
+</div>
+
+<div id="panel_guarda" class="panel">
+
+<p>Para poder acceder al contenido de esta pestaña, necesita guardar los cambios</p>
+
+</div>
+
+
+</div>
+
+
+

@@ -1,0 +1,6 @@
+<% if session[:sidebar] %>
+	<%= link_to_remote image_tag("min.png"), :url => {:controller => 'account', :action => 'cambiar_sidebar', :sidebar => 'false'}, :update => {:success => 'barra'}, :complete => "esconderSidebar();" %>
+<% else %>
+<%= link_to_remote image_tag("max.png"), :url => {:controller => 'account', :action => 'cambiar_sidebar', :sidebar => 'true'}, :update => {:success => 'barra'}, :complete => "mostrarSidebar();" %>
+
+<% end %>

@@ -1,0 +1,48 @@
+	<% prefijo = controller.controller_name+"_"+controller.action_name+"_"+(rand()*100).to_i.to_s %>
+
+<h1>Actores kepler de <%= tipo %> para la implementaci&oacute;n: <%=h nombre.to_s %></h1>
+
+<% if nuevo %>
+	<a href="#" onclick="mostrarDireccion('<%= prefijo%>','-1', '<%= url_for :controller => 'kactors', :action => 'implementacion_ikepler', :implementacion => id, :tipo => tipo, :accion => 'new' %>');">Nueva asociaci&oacute;n</a>
+
+<% end %>
+
+<div id="<%= prefijo %>_div_id_-1"></div>
+<table id="<%= prefijo %>_la_tabla" class="tabla_datos" cellspacing="0" cellpadding="0">
+  <tr >
+    <th class="barra_cabecera">Nombre</th>
+    <th class="barra_cabecera">Clase</th>
+    <th class="barra_cabecera" colspan="3">Opciones</th>
+  </tr>
+
+	<% clase = 0 %>
+	<% if ikeplers != nil %>
+<% for ientrada in ikeplers %>
+  <tr id="<%= prefijo %>_tr_id_<%= ientrada.id.to_s %>">
+    <% clase = clase % 2 %>
+    <td class="barra_activa_<%= clase.to_s %>" id="tipo_id_<%= ientrada.id.to_s %>"><%=h ientrada.nombre %></td>
+    <td class="barra_activa_<%= clase.to_s %>" id="formato_id_<%= ientrada.id.to_s %>"><%=h ientrada.clase %></td>
+
+    <td class="barra_activa_<%= clase.to_s %>">
+    <a href="#" onclick="mostrarDireccion('<%= prefijo%>','<%= ientrada.id.to_s %>', '<%= url_for :controller => 'kactors', :action => 'show_ikepler' %>/');">Mostrar</a></td>
+    <td class="barra_activa_<%= clase.to_s %>">
+
+	<% if current_user.Check(ientrada) %>
+	    <a href="#" onclick="mostrarDireccion('<%= prefijo%>','<%= ientrada.id.to_s %>', '<%= url_for :controller => 'kactors', :action => 'formulario_ikepler' %>/');">Modificar</a>
+	<% end %>
+
+    </td>
+    <td class="barra_activa_<%= clase.to_s %>">
+
+	    <%= link_to_remote 'Eliminar', :url => { :controller => 'kactors', :action => 'destroy_ikepler', :id => ientrada.id, :prefijo => prefijo }, :update => {:success => prefijo+'_la_tabla'}, :confirm => 'Deseas eliminar la relación?', :method => :post %>
+
+    </td>
+    <% clase = clase +1 %>
+  </tr>
+  <tr><td colspan="10" style=""><div style="display: none;" id="<%= prefijo %>_div_id_<%= ientrada.id.to_s %>"></div></td></tr>
+<% end %>
+<% end %>
+</table>
+
+<br />
+

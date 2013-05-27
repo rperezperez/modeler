@@ -1,0 +1,34 @@
+<table id="<%= @prefijo %>_la_tabla" class="tabla_datos" cellspacing="0" cellpadding="0">
+  <tr >
+    <th class="barra_cabecera">Tipo</th>
+    <th class="barra_cabecera">Formato</th>
+    <th class="barra_cabecera" colspan="3">Opciones</th>
+  </tr>
+
+	<% clase = 0 %>
+<% for ientrada in @ientradas %>
+  <tr id="<%= @prefijo %>_tr_id_<%= ientrada.id.to_s %>">
+    <% clase = clase % 2 %>
+    <td class="barra_activa_<%= clase.to_s %>" id="tipo_id_<%= ientrada.id.to_s %>"><%=h ientrada.tipo %></td>
+    <td class="barra_activa_<%= clase.to_s %>" id="formato_id_<%= ientrada.id.to_s %>"><%=h ientrada.formato %></td>
+
+    <td class="barra_activa_<%= clase.to_s %>">
+    <a href="#" onclick="mostrarDireccion('<%= @prefijo%>','<%= ientrada.id.to_s %>', '<%= url_for :controller => 'ientradas', :action => 'show' %>/');">Mostrar</a></td>
+    <td class="barra_activa_<%= clase.to_s %>">
+
+	<% if current_user.Check(ientrada) %>
+	    <a href="#" onclick="mostrarDireccion('<%= @prefijo%>','<%= ientrada.id.to_s %>', '<%= url_for :controller => 'ientradas', :action => 'edit' %>/');">Modificar</a>
+	<% end %>
+
+    </td>
+    <td class="barra_activa_<%= clase.to_s %>">
+
+	    <%= link_to_remote 'Eliminar', :url => { :controller => 'ientradas', :action => 'destroy_implementacion_ientrada', :ientrada => ientrada.id, :implementacion => @id, :prefijo => @prefijo }, :update => {:success => @prefijo+'_la_tabla'}, :confirm => 'Deseas eliminar la relación?', :method => :post %>
+
+    </td>
+    <% clase = clase +1 %>
+  </tr>
+  <tr><td colspan="10" style=""><div style="display: none;" id="<%= @prefijo %>_div_id_<%= ientrada.id.to_s %>"></div></td></tr>
+<% end %>
+</table>
+

@@ -1,0 +1,11 @@
+					<span class="error"><%= error_messages_for 'usuario' %></span>
+					<span class="error"><%= flash[:notice] %></span>
+
+
+<%= start_form_tag :action => "activate" %>
+<label for="activation_code">C&oacute;digo de activaci&oacute;n</label>
+<%= text_field_tag(:activation_code, params[:id], :size=>50 ) %>
+<br/>
+<br/>
+<p><%= submit_tag 'Activar', :class => 'boton' %></p>
+<%= end_form_tag %>

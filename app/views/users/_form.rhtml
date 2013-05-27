@@ -1,0 +1,31 @@
+<%= error_messages_for 'users' %>
+
+<!--[form:users]-->
+<p><label for="users_login">Login</label><br/>
+<%= text_field 'users', 'login'  %></p>
+
+<p><label for="users_email">Email</label><br/>
+<%= text_field 'users', 'email'  %></p>
+
+<p><label for="users_crypted_password">Crypted password</label><br/>
+<%= password_field 'users', 'crypted_password'  %></p>
+
+<p><label for="users_salt">Salt</label><br/>
+<%= text_field 'users', 'salt'  %></p>
+
+<p><label for="users_created_at">Created at: <%= @users.created_at.strftime("%d-%m-%Y") if @users.created_at != nil %></label><br/>
+</p>
+
+<p><label for="users_updated_at">Updated at: <%= @users.updated_at.strftime("%d-%m-%Y") if @users.updated_at != nil %></label><br/>
+</p>
+
+<p><label for="users_activation_code">Activation code</label><br/>
+<%= text_field 'users', 'activation_code'  %></p>
+
+<p><label for="users_activated_at">Activated at: <%= @users.activated_at.strftime("%d-%m-%Y") if @users.activated_at != nil %></label><br/>
+</p>
+
+<p><label for="users_is_admin">Is admin</label><br/>
+<select id="users_is_admin" name="users[is_admin]"><option value="false" selected>False</option><option value="true">True</option></select></p>
+<!--[eoform:users]-->
+

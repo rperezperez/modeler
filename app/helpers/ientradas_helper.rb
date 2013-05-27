@@ -1,0 +1,2 @@
+module IentradasHelper
+end

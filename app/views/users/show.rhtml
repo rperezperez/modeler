@@ -1,0 +1,8 @@
+<% for column in User.content_columns %>
+<p>
+  <b><%= column.human_name %>:</b> <%=h @users.send(column.name) %>
+</p>
+<% end %>
+
+<%= link_to 'Editar', :action => 'edit', :id => @users %> |
+<%= link_to 'Listado', :action => 'list' %>

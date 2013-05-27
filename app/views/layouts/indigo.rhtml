@@ -1,0 +1,204 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+
+<title>iEcolab [Repositorio de Modelos] </title>
+
+  <%= stylesheet_link_tag "indigo", :media => 'all' %>
+
+ <%= javascript_include_tag "prototype" %>
+ <%= javascript_include_tag "effects" %>
+ <%= javascript_include_tag "scriptaculous" %>
+ <%= javascript_include_tag "slider" %>
+ <%= javascript_include_tag "controls" %>
+ <%= javascript_include_tag "css_browser_selector" %>
+
+ <%= javascript_include_tag "metadatos" %>
+
+ <%= javascript_include_tag "fckeditor" %>
+
+
+<style type="text/css">
+</style>
+
+
+<meta http-Equiv="Cache-Control" Content="no-cache">
+<meta http-Equiv="Pragma" Content="no-cache">
+<meta http-Equiv="Expires" Content="0">
+
+	  <link rel="shortcut icon" href="<%= image_path "../favicon.ico" %>" />
+
+</head>
+
+<body>
+
+
+<div class="container">
+
+	<div class="header">
+
+				<div class="navigation">
+
+			  <% if logged_in? %>
+
+				<% if current_user.is_admin? %>
+				    <a href="<%= url_for :controller => 'users', :action => 'index' %>"><span>Gesti&oacute;n Usuarios</span></a>
+				<% end %>
+		<a><span>|</span></a>
+		    <a href="<%= url_for :controller => 'modelos', :action => 'index' %>"><span>Modelos</span></a>
+		    <a href="<%= url_for :controller => 'implementacions', :action => 'index' %>"><span>Implementaciones</span></a>
+		    <a href="<%= url_for :controller => 'ientradas', :action => 'index' %>"><span>Entrada/Salida</span></a>
+		    <a href="<%= url_for :controller => 'kactors', :action => 'index' %>"><span>Actores</span></a>
+		<a><span>|</span></a>
+
+		    <a href="<%= url_for :controller => 'temas', :action => 'new' %>"><span>Nuevo Tema</span></a>
+
+			  <% end %>
+
+					<div class="clearer"><span></span></div>
+				</div>
+
+
+    <div id="topnav">
+	  <% if logged_in? %>
+	
+		<form method="get" id="searchform" action="<%= url_for(:controller => 'temas', :action => 'search')%>">
+
+		<input type="text" value="buscar" name="s" id="s" onClick="this.select();"/>
+
+		</form>
+		
+		|
+	
+	    <%= link_to(current_user.login.to_s+" (Editar)", :controller => 'account', :action => 'change_password') %> |
+		<% if current_user.is_admin? %>
+		    <%= link_to("Panel", :controller => 'users', :action => 'panel') %> |
+		<% end %>
+	    <%= link_to "Salir", :controller => 'account', :action => 'logout' %>
+      <% end %>
+
+	</div>
+
+		<div class="title">
+			
+			<div id="logo"><%= link_to image_tag("logo.png"), "http://www.iecolab.es", :target => '_blank' %></div>
+			<div id="logo_texto"><%= link_to "Repositorio de Modelos", :controller => "modelos" %></div>
+			
+		</div>
+
+
+	</div>
+
+	<div class="main">
+
+		<% if logged_in? %>
+		<div class="barra" id="barra">
+			<% if session[:sidebar] %>
+				<%= link_to_remote image_tag("min.png"), :url => {:controller => 'account', :action => 'cambiar_sidebar', :sidebar => 'false'}, :update => {:success => 'barra'}, :complete => "esconderSidebar();" %>
+			<% else %>
+			<%= link_to_remote image_tag("max.png"), :url => {:controller => 'account', :action => 'cambiar_sidebar', :sidebar => 'true'}, :update => {:success => 'barra'}, :complete => "mostrarSidebar();" %>
+
+			<% end %>
+		</div>
+		<% end %>
+
+		<div class="content" id="content">
+
+
+<%= @content_for_layout %>
+
+
+			<p align="center"> </p>
+
+
+		</div>
+		
+		<div class="sidenav" id="sidenav">
+
+	  <% if logged_in? %>
+
+<h1><%= link_to "Temas recientes", :controller=> 'temas', :action=> 'blog' %></h1>
+
+<ul>
+<% @tema = Tema.blog_list %>
+<% for tema in @tema %>
+<li><%= link_to tema.titulo, :controller => 'temas', :action=> 'show', :id => tema.id %></li>
+<% end %>
+</ul>
+
+
+
+<% end %>
+
+		 <h1>Instituciones</h1>
+
+<ul>
+<li><%= image_tag 'logo-junta.gif'%></li><li><%= image_tag 'logo-ceama.gif', :size => "90x50"%></li><li><%= image_tag 'logo-ugr.gif'%></li>
+</ul>
+
+	  <% if logged_in? %>
+
+		<h1>Nube de etiquetas</h1>
+
+		<ul>
+
+<% @tags = Tema.tag_counts %>
+<li> <% tag_cloud @tags, %w(css1 css2 css3 css4) do |tag, css_class| %>
+   <%= link_to tag.name, { :controller => 'temas', :action => :tag, :id => tag.name }, :class => css_class %>
+  <% end %></li>
+<% @tags = Modelo.tag_counts %>
+<li> <% tag_cloud @tags, %w(css1 css2 css3 css4) do |tag, css_class| %>
+   <%= link_to tag.name, { :controller => 'modelos', :action => :tag, :id => tag.name }, :class => css_class %>
+  <% end %></li>
+		</ul>
+
+
+		<h1>Meta:</h1>
+
+		<ul>
+
+		<li><%= link_to "RSS", :controller => 'ejecucion', :action=> 'feed' %></li>
+		<%= auto_discovery_link_tag(:rss, :controller => 'ejecucion', :action => 'feed') %>
+
+		</ul>
+
+<% end %>
+
+<p></p>
+		</div>
+
+
+	<div class="clearer"><span></span></div>
+
+
+</div>
+</div>
+<div class="footer">&copy; 2008 Ceama - iEcolab - Repositorio de Modelos - Versi&oacute;n 1.0 - Inspirado en Kaushal Sheth</div>
+
+<script languaje="javascript">
+
+function mostrarSidebar(){
+	$('sidenav').appear();
+	$('sidenav').setStyle({width: '14%'});	
+	$('content').setStyle({width: '79%'});
+}
+
+function esconderSidebar(){
+	$("sidenav").setStyle({display: 'none'});
+	$("content").setStyle({width: '99%'});
+}
+
+<% if session[:sidebar] == true %>
+	mostrarSidebar();
+<% else %>
+	esconderSidebar();
+<% end %>
+
+</script>
+
+
+
+</body>
+</html>

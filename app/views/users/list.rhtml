@@ -1,0 +1,34 @@
+	<% prefijo = controller.controller_name+"_"+controller.action_name+"_"+(rand()*1000).to_i.to_s %>
+
+<h1>Listado de usuarios</h1>
+
+<table id="<%= prefijo %>_la_tabla" class="tabla_datos" cellspacing="0" cellpadding="0">
+
+  <tr>
+    <th class="barra_cabecera">login</th>
+    <th class="barra_cabecera">email</th>
+    <th class="barra_cabecera">&Uacute;ltimo acceso</th>
+    <th  class="barra_cabecera" colspan="3">Opciones</th>
+  </tr>
+	<% clase = 0 %>
+
+<% for users in @users %>
+  <tr>
+      <% clase = clase % 2 %>
+
+    <td class="barra_activa_<%= clase.to_s %>"><%=h users.login.to_s %></td>
+    <td class="barra_activa_<%= clase.to_s %>"><%=h users.email.to_s %></td>
+    <td class="barra_activa_<%= clase.to_s %>"><%=h users.updated_at.strftime("%d/%m/%Y, %H:%M").to_s %></td>
+
+    <td class="barra_activa_<%= clase.to_s %>"><%= link_to 'Mostrar', :action => 'show', :id => users %></td>
+    <td class="barra_activa_<%= clase.to_s %>"><%= link_to 'Editar', :action => 'edit', :id => users %></td>
+    <td class="barra_activa_<%= clase.to_s %>"><%= link_to 'Eliminar', { :action => 'destroy', :id => users }, :confirm => 'Estas seguro?', :method => :post %></td>
+    <% clase = clase +1 %>
+  </tr>
+<% end %>
+</table>
+
+<%= will_paginate @users %>
+
+<br />
+

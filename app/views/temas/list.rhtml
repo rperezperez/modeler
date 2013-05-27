@@ -1,0 +1,31 @@
+	<% prefijo = controller.controller_name+"_"+controller.action_name+"_"+(rand()*100).to_i.to_s %>
+
+<h1>Listado de temas</h1>
+
+<table class="tabla_datos" cellspacing="0" cellpadding="0">
+  <tr>
+    <th class="barra_cabecera">T&iacute;tulo</th>
+    <th class="barra_cabecera">Autor</th>
+        <th class="barra_cabecera" colspan="3">Opciones</th>
+  </tr>
+	<% clase = 0 %>
+<% for tema in @temas %>
+  <tr>
+    <% clase = clase % 2 %>
+    <td class="barra_activa_<%= clase.to_s %>"><%=h tema.titulo %></td>
+    <td class="barra_activa_<%= clase.to_s %>"><%=h tema.user.login %></td>
+
+    <td class="barra_activa_<%= clase.to_s %>"><%= link_to 'Mostrar', :action => 'show', :id => tema %></td>
+    <td class="barra_activa_<%= clase.to_s %>"><%= link_to 'Editar', :action => 'edit', :id => tema %></td>
+    <td class="barra_activa_<%= clase.to_s %>"><%= link_to 'Eliminar', { :action => 'destroy', :id => tema }, :confirm => 'Estas seguro?', :method => :post %></td>
+
+	<% clase = clase +1 %>
+  </tr>
+<% end %>
+</table>
+
+<%= will_paginate @temas %>
+
+<br />
+
+<%= link_to 'Nuevo tema', :action => 'new' %>

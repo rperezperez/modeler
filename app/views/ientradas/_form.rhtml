@@ -1,0 +1,25 @@
+<%= error_messages_for 'ientrada' %>
+
+<!--[form:ientrada]-->
+<p><label for="ientrada_tipo">Tipo</label><br/>
+<%= text_field_ayuda 'ientrada', 'tipo', :size => '80'  %></p>
+
+<p><label for="ientrada_descripcion">Descripci&oacute;n</label><br/>
+<%= text_area_ayuda 'ientrada', 'descripcion', :cols => '80', :rows => '16' %></p>
+
+<p><label for="ientrada_mdatos">Modelo de datos</label><br/>
+<%= text_field_ayuda 'ientrada', 'mdatos', :size => '80'  %></p>
+
+<p><label for="ientrada_formato">Formato</label><br/>
+<%= text_field_ayuda 'ientrada', 'formato', :size => '80'  %></p>
+
+<p><label for="ientrada_disponibilidad">Disponibilidad</label><br/>
+<%= text_area_ayuda 'ientrada', 'disponibilidad', :cols => '80'  %></p>
+
+<p><label for="ientrada_path1">Fichero</label><br/>
+<%= file_column_field_ayuda @ientrada, "path1", "ientrada" %></p>
+
+<!--[eoform:ientrada]-->
+
+
+<%= render :partial => 'kactors/listado_ientrada', :locals => {:ikeplers => @ientrada.ikeplers.find_all_by_tipo("ientrada"), :id => @ientrada.id, :nombre => @ientrada.tipo, :nuevo => true, :tipo => 'ientrada'} %>

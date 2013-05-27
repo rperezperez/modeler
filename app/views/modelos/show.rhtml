@@ -1,0 +1,15 @@
+<div class="barra">
+	<div class="barra_cerrar" onclick="javascript:cerrar();"><a href="#" class='barra_enlace'>Cerrar</a></div>
+</div>
+
+<% for column in Modelo.content_columns %>
+<p>
+  <b><%= column.human_name %>:</b> <%=h @modelo.send(column.name) %>
+</p>
+<% end %>
+
+<%= render :partial => 'autors/listado', :locals => {:ientradas => @modelo.autors, :id => @modelo.id, :nombre => @modelo.nombre, :nuevo => false} %>
+
+<div class="barra">
+	<div class="barra_cerrar" onclick="javascript:cerrar();"><a href="#" class='barra_enlace'>Cerrar</a></div>
+</div>

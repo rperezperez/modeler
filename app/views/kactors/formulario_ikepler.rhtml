@@ -1,0 +1,31 @@
+<div class="marco">
+
+<div class="barra">
+	<div class="barra_cerrar" onclick="javascript:cerrar();"><a href="#" class='barra_enlace'>Cerrar</a></div>
+</div>
+
+<% if flash[:notice] != nil %>
+<h3 class="informacion"><%= flash[:notice] %></h3>
+<% end %>
+
+<% if @accion == "new" %>
+   <% form_tag({:action => 'create_ikepler'}, {:multipart => true, :class => 'commentform', :id => 'formulario_ventana_ikepler'}) do %>
+	  <%= hidden_field 'ikepler', 'implementacion_id', :value => @implementacion %>
+	  <%= hidden_field 'ikepler', 'tipo', :value => @tipo %>
+	  <%= hidden_field 'kactor','id', :value => @actor.id %>
+      <%= render :partial => 'form_ikepler' %>
+  	  <%= submit_tag 'Guardar' %>
+   <% end %>
+
+<% else %>
+   <% form_tag({:action => 'update_ikepler'}, {:multipart => true, :class => 'commentform', :id => 'formulario_ventana_ikepler'}) do %>
+	  <%= hidden_field 'ikepler', 'id', :value => @ikepler.id %>
+	  <%= hidden_field 'ikepler', 'implementacion_id', :value => @implementacion %>
+	  <%= hidden_field 'ikepler', 'tipo', :value => @tipo %>
+      <%= render :partial => 'form_ikepler' %>
+	  <%= submit_tag 'Guardar' %>
+   <% end %>
+
+<% end %>
+
+</div>

@@ -1,0 +1,39 @@
+<div class="busqueda">
+
+<div class="barra">
+	<div class="barra_cerrar" onclick="javascript:cerrar();"><a href="#" class='barra_enlace'>Cerrar B&uacute;squeda</a></div>
+</div>
+
+<h1>Nuevo registro Actor Kepler</h1>
+
+<% if flash[:notice] != nil %>
+<h3 class="informacion"><%= flash[:notice] %></h3>
+<% end %>
+
+<h2>Buscador de actores para la asociaci&oacute;n con la Entrada/Salida</h2>
+<%= text_field_tag :buscador, '', :size => 40 %>
+<%= image_tag("indicator.gif", :id => 'search-indicator', :style => 'display:none') %>
+<%= observe_field(:buscador,
+      :update   => :formulario,
+      :frequency => 0.5,
+      :url      => { :action => :search_ikepler_ientrada, :ientrada => @ientrada, :tipo => @tipo, :accion => @accion},
+      :loading => "Element.show('search-indicator')",
+      :complete => "Element.hide('search-indicator')") %>
+</p>
+
+<div id="formulario"></div>
+
+<div class="barra">
+	<div class="barra_cerrar" onclick="javascript:cerrar();"><a href="#" class='barra_enlace'>Cerrar B&uacute;squeda</a></div>
+</div>
+
+<% if flash[:notice] != nil and flash[:notice].include? "OK." %>
+
+<script type="text/javascript">
+	parent.document.location.reload();
+</script>
+
+<% flash[:notice] = nil %>
+<% end %>
+
+</div>

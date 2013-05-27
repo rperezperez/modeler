@@ -1,0 +1,22 @@
+<% for blog in @temas %>
+
+			<div class="post" id="post-<%= blog.id%>">
+
+			<h1><%= link_to blog.titulo, :controller=> 'temas', :action => 'show', :id => blog.id %></a></h1>
+
+			<div class="descr"><%= image_tag 'timeicon.gif'%> <%= blog.updated_at.strftime("%d/%m/%Y a las %H:%M") %> por <%= image_tag 'author.gif'%> <%= blog.user.login %> </div>
+
+				<div class="entry">
+
+				<p><%= blog.cuerpo %></p>
+
+				</div>
+
+			<p class="info">Etiquetado como <%=h blog.tag_list %> <strong>|</strong>  <%= image_tag 'comments.gif' %><%= blog.comentarios.size.to_s %></p>
+
+			</div>
+
+
+<% end %>
+
+<%= will_paginate @temas %>

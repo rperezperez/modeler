@@ -1,0 +1,15 @@
+# Read about fixtures at http://ar.rubyonrails.org/classes/Fixtures.html
+
+one:
+  externalsource_id: 1
+  ientrada_id: 1
+  id_eml: MyString
+  version: MyString
+  datatable: MyString
+
+two:
+  externalsource_id: 1
+  ientrada_id: 1
+  id_eml: MyString
+  version: MyString
+  datatable: MyString

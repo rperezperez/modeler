@@ -1,0 +1,25 @@
+FEATURES
+========
+
+Modificacion de la generacion de to_xml para que tenga en cuenta aquellos campos del modelo que son de tipo file_column
+
+USAGE
+=====
+
+Hay que definir una función que se llame url_for_model_to_xml que contenga la dirección del host.
+
+DOCUMENTATION
+=============
+
+Please look at the rdoc-generated documentation in the "doc" directory.
+
+RUNNING UNITTESTS
+=================
+
+
+BUGS & FEEDBACK
+===============
+
+Bug reports (as well as patches) and feedback are very welcome. Please send it to
+ramon.pperez@gmail.com
+

@@ -1,0 +1,39 @@
+	<% prefijo = controller.controller_name+"_"+controller.action_name+"_"+(rand()*100).to_i.to_s %>
+	<% controlador = 'ejecucion' %>
+
+<h1>Listado de Ejecuciones desde el Servidor</h1>
+
+<table id="<%= prefijo %>_la_tabla" class="tabla_datos" cellspacing="0" cellpadding="0">
+  <tr >
+    <th class="barra_cabecera">Usuario</th>
+    <th class="barra_cabecera">Modelo</th>
+    <th class="barra_cabecera">Inicio</th>
+    <th class="barra_cabecera">Finalizado</th>
+    <th class="barra_cabecera">Resultado</th>
+  </tr>
+
+	<% clase = 0 %>
+
+<% for ientrada in @kejecucions %>
+  <tr id="<%= prefijo %>_tr_id_<%= ientrada.id.to_s %>">
+    <% clase = clase % 2 %>
+    <td class="barra_activa_<%= clase.to_s %>" id="descripcion_id_<%= ientrada.id.to_s %>"><%=h ientrada.user.login %></td>
+    <td class="barra_activa_<%= clase.to_s %>" id="descripcion_id_<%= ientrada.id.to_s %>"><%=h ientrada.implementacion.nombre %></td>
+    <td class="barra_activa_<%= clase.to_s %>" id="descripcion_id_<%= ientrada.id.to_s %>"><%=h ientrada.created_at.strftime("%d/%m/%Y, a las %H:%M") %></td>
+    <td class="barra_activa_<%= clase.to_s %>" id="descripcion_id_<%= ientrada.id.to_s %>"><%=h ientrada.finalizado.strftime("%d/%m/%Y, a las %H:%M") unless ientrada.finalizado == nil %></td>
+
+    <td class="barra_activa_<%= clase.to_s %>" id="comentario_id_<%= ientrada.id.to_s %>"><%= link_to_unless(ientrada.finalizado == nil, "Resultado", :controller => "run_modelo", :action => "resultados_#{ientrada.idproceso}.zip") %></td>
+
+<!--
+    <td class="barra_activa_<%= clase.to_s %>" id="descripcion_id_<%= ientrada.id.to_s %>"><%= link_to_unless(ientrada.finalizado == nil, "Resultado", :controller => "run_modelo", :action => "resultados_#{ientrada.idproceso}.zip") %></td>
+-->
+
+    <% clase = clase +1 %>
+  </tr>
+  <tr>
+<% end %>
+</table>
+
+<%= will_paginate @kejecucions %>
+
+<br />

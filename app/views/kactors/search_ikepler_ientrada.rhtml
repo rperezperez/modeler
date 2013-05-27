@@ -1,0 +1,17 @@
+<div id="formulario_ikepler"></div>
+<ul>
+<% if @actores != nil %>
+<% for actor in @actores %>
+<li><%= link_to_remote(actor.nombre.to_s, :update => 'formulario_ikepler', :url => {:action => 'formulario_ikepler_ientrada', :id => actor.id.to_s, :ientrada => @ientrada, :tipo => @tipo, :accion => @accion}) %> (<%= actor.nombre.to_s %>): <%= actor.documentacion.to_s %><hr/></li>
+<% end %>
+<% end %>
+</ul>
+
+<% if flash[:notice] != nil and flash[:notice].include? "OK." %>
+
+<script type="text/javascript">
+	parent.document.location.reload();
+</script>
+
+<% flash[:notice] = nil %>
+<% end %>

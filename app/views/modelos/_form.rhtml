@@ -1,0 +1,136 @@
+ <%= javascript_include_tag "stereotabs" %>
+
+<script type="text/javascript">
+	Event.observe(window, 'load', loadTabs, false);
+	function loadTabs() {
+		var tabs = new tabset('container'); // name of div to crawl for tabs and panels
+		tabs.autoActivate($('tab_uno')); // name of tab to auto-select if none exists in the url
+	}
+</script>
+
+<%= error_messages_for 'modelo' %>
+
+
+<div id="container" class="tab">
+<ul id="tabnav">
+  <a href="#uno" id="tab_uno" class="tab selected" onclick="setTimeout('redimensionar(parent.iframe)', 3000)">Identificaci&oacute;n</a>
+  <a href="#diez" id="tab_diez" class="tab" onclick="setTimeout('redimensionar(parent.iframe)', 3000)">L&oacute;gica Apli.</a>
+  <a href="#cuatro" id="tab_cuatro" class="tab" onclick="setTimeout('redimensionar(parent.iframe)', 3000)">Evaluaci&oacute;n</a>
+  <a href="#cinco" id="tab_cinco" class="tab" onclick="setTimeout('redimensionar(parent.iframe)', 3000)">Complementos</a>
+
+  <% if controller.action_name != 'new' %>
+	  <a href="#seis" id="tab_seis" class="tab" onclick="setTimeout('redimensionar(parent.iframe)', 3000)">Limitaciones</a>
+	  <a href="#dos" id="tab_dos" class="tab" onclick="setTimeout('redimensionar(parent.iframe)', 3000)">Autores</a>
+	  <a href="#tres" id="tab_tres" class="tab" onclick="setTimeout('redimensionar(parent.iframe)', 3000)">Bibliograf&iacute;a</a>
+	  <a href="#nueve" id="tab_nueve" class="tab" onclick="setTimeout('redimensionar(parent.iframe)', 3000)">&Aacute;reas</a>
+	  <a href="#once" id="tab_once" class="tab" onclick="setTimeout('redimensionar(parent.iframe)', 3000)">Implementaciones</a>
+  <% else %>
+	  <a href="#guarda" id="tab_guarda" class="tab" onclick="setTimeout('redimensionar(parent.iframe)', 3000)">Limitaciones</a>
+      <a href="#guarda" id="tab_guarda" class="tab" onclick="setTimeout('redimensionar(parent.iframe)', 3000)">Autores</a>
+	  <a href="#guarda" id="tab_guarda" class="tab" onclick="setTimeout('redimensionar(parent.iframe)', 3000)">Bibliograf&iacute;a</a>
+	  <a href="#guarda" id="tab_guarda" class="tab" onclick="setTimeout('redimensionar(parent.iframe)', 3000)">&Aacute;reas</a>
+	  <a href="#guarda" id="tab_guarda" class="tab" onclick="setTimeout('redimensionar(parent.iframe)', 3000)">Implementaciones</a>
+  <% end %>
+</ul>
+
+
+<div id="panel_uno" class="panel">
+<!--[form:modelo]-->
+<p><label for="modelo_acronimo">Acronimo</label><br/>
+<%= text_field_ayuda 'modelo', 'acronimo'  %></p>
+
+<p><label for="modelo_nombre">Nombre</label><br/>
+<%= text_field_ayuda 'modelo', 'nombre'  %></p>
+
+<p><label for="modelo_palabras_clave">Palabras clave</label><br/>
+<%= text_field_ayuda 'modelo', 'palabras_clave'  %></p>
+
+<p><label for="modelo_palabras_clave">Etiquetas</label><br/>
+<%= text_field 'modelo', 'tag_list',:size => 100  %></p>
+
+</div>
+
+<div id="panel_diez" class="panel">
+<p><label for="modelo_tipo">Tipo</label><br/>
+<%= text_field_ayuda 'modelo', 'tipo'  %></p>
+
+
+<p><label for="modelo_resumen">Resumen</label><br/>
+<%= text_area_ayuda 'modelo', 'resumen'  %></p>
+
+<p><label for="modelo_extendida">Extendida</label><br/>
+<%= text_area_ayuda 'modelo', 'extendida'  %></p>
+
+<p><label for="modelo_mapa_conceptual">Mapa conceptual</label><br/>
+	<%= link_to(image_tag(url_for_file_column('modelo', 'mapa_conceptual', 'thumb')), url_for_file_column('modelo', 'mapa_conceptual'), :target => '_blank') if @modelo.mapa_conceptual != nil %>
+	<br/>
+	<%= file_field_ayuda 'modelo', 'mapa_conceptual'  %></p>
+
+</div>
+
+
+<div id="panel_cuatro" class="panel">
+<p><label for="modelo_usabilidad">Usabilidad</label><br/>
+<%= text_field_ayuda 'modelo', 'usabilidad'  %></p>
+
+<p><label for="modelo_utilidad">Utilidad</label><br/>
+<%= text_area_ayuda 'modelo', 'utilidad'  %></p>
+
+<p><label for="modelo_implementabilidad">Implementabilidad</label><br/>
+<%= text_area_ayuda 'modelo', 'implementabilidad'  %></p>
+
+</div>
+
+<div id="panel_cinco" class="panel">
+<p><label for="modelo_path1">Path1</label><br/>
+<%= file_field_ayuda 'modelo', 'path1'  %></p>
+
+<p><label for="modelo_path2">Path2</label><br/>
+<%= file_field_ayuda 'modelo', 'path2'  %></p>
+
+<p><label for="modelo_path3">Path3</label><br/>
+<%= file_field_ayuda 'modelo', 'path3'  %></p>
+
+<p><label for="modelo_path4">Path4</label><br/>
+<%= file_field_ayuda 'modelo', 'path4'  %></p>
+<!--[eoform:modelo]-->
+
+</div>
+
+<div id="panel_guarda" class="panel">
+
+<p>Para poder acceder al contenido de esta pestaña, necesita guardar los cambios</p>
+
+</div>
+
+<div id="panel_dos" class="panel">
+	<%= render :partial => 'autors/listado', :locals => {:ientradas => @modelo.autors, :id => @modelo.id, :nombre => @modelo.nombre, :nuevo => true} %>
+</div>
+
+<div id="panel_nueve" class="panel">
+	<%= render :partial => 'aagestions/listado', :locals => {:ientradas => @modelo.aagestions, :id => @modelo.id, :nombre => @modelo.nombre, :nuevo => true} %>
+	<br/>
+	<%= render :partial => 'aambitos/listado', :locals => {:ientradas => @modelo.aambitos, :id => @modelo.id, :nombre => @modelo.nombre, :nuevo => true} %>
+	<br/>
+	<%= render :partial => 'aaobjetivos/listado', :locals => {:ientradas => @modelo.aaobjetivos, :id => @modelo.id, :nombre => @modelo.nombre, :nuevo => true} %>
+	<br/>
+	<%= render :partial => 'aaplicacions/listado', :locals => {:ientradas => @modelo.aaplicacions, :id => @modelo.id, :nombre => @modelo.nombre, :nuevo => true} %>
+
+</div>
+
+<div id="panel_tres" class="panel">
+	<%= render :partial => 'bibliografias/listado', :locals => {:ientradas => @modelo.bbasicas, :id => @modelo.id, :nombre => @modelo.nombre, :nuevo => true, :bbasicas => true} %>
+	<%= render :partial => 'bibliografias/listado', :locals => {:ientradas => @modelo.bcomplementarias, :id => @modelo.id, :nombre => @modelo.nombre, :nuevo => true, :bbasicas => false} %>
+</div>
+
+<div id="panel_seis" class="panel">
+	<%= render :partial => 'limitacions/listado', :locals => {:ientradas => @modelo.limitacions, :id => @modelo.id, :nombre => @modelo.nombre, :nuevo => true} %>
+</div>
+
+<div id="panel_once" class="panel">
+	<%= render :partial => 'implementacions/listado', :locals => {:ientradas => @modelo.implementacions, :id => @modelo.id, :nombre => @modelo.nombre, :nuevo => true} %>
+</div>
+
+</div>
+
+

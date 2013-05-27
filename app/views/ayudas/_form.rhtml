@@ -1,0 +1,19 @@
+<%= error_messages_for 'ayuda' %>
+
+<!--[form:ayuda]-->
+<p><label for="ayuda_tabla">Tabla</label><br/>
+<%= text_field 'ayuda', 'tabla'  %></p>
+
+<p><label for="ayuda_campo">Campo</label><br/>
+<%= text_field 'ayuda', 'campo'  %></p>
+
+<p><label for="ayuda_comentario">Comentario</label><br/>
+<%= text_field 'ayuda', 'comentario'  %></p>
+
+<p><label for="ayuda_created_at">Created at: <%= @ayuda.created_at.strftime("%d-%m-%Y") if @ayuda.created_at != nil %></label><br/>
+</p>
+
+<p><label for="ayuda_updated_at">Updated at: <%= @ayuda.updated_at.strftime("%d-%m-%Y") if @ayuda.updated_at != nil %></label><br/>
+</p>
+<!--[eoform:ayuda]-->
+

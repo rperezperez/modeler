@@ -1,0 +1,28 @@
+<%= error_messages_for 'ikepler' %>
+
+<!--[form:ientrada]-->
+<p><label for="ientrada_tipo">Nombre</label><br/>
+<%= text_field_ayuda 'ikepler', 'nombre', :size => '80'  %></p>
+
+<p><label for="ientrada_descripcion">Clase</label><br/>
+  <%= hidden_field 'ikepler', 'clase', :value => @ikepler.clase %>
+  <%= @ikepler.clase %></p>
+
+<table>
+<tr>
+	<th>Nombre</th><th>Valor</th><th>Documentaci&oacute;n</th>
+</tr>
+<% i = 0 %>
+<% for atributo in @ikepler.ikepleratributos %>
+<tr>
+  <td>
+  <%= hidden_field 'ikepleratributo_'+i.to_s, 'nombre', :value => atributo.nombre %>
+  <%= hidden_field 'ikepleratributo_'+i.to_s, 'clase', :value => atributo.clase %>
+  <%= atributo.nombre %></td>
+  <td><%= text_field 'ikepleratributo_'+i.to_s, 'valor', :value => atributo.valor, :size => '40'  %></td>
+  <td><%= Ikepleratributo.documentacion(@ikepler.clase, atributo.nombre) %>
+</tr>
+<% i = i+1 %>
+<% end %>
+</table>
+<!--[eoform:ientrada]-->

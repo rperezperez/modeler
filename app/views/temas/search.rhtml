@@ -1,0 +1,53 @@
+<%= prefijo = 'search' %>
+
+<p class="info" align="right">T&eacute;rmino buscado <strong><%=h @search %></strong></p>
+
+<h2>Temas encontrados: <%= @temas.size.to_s %> </h2>
+<br/><br/>
+<% for blog in @temas %>
+
+			<div class="post" id="post-<%= blog.id%>">
+
+			<h1><%= link_to blog.titulo, :controller=> 'temas', :action => 'show', :id => blog.id %></a></h1>
+
+			<div class="descr"><%= image_tag 'timeicon.gif'%> <%= blog.updated_at.strftime("%d/%m/%Y a las %H:%M") %> por <%= image_tag 'author.gif'%> <%= blog.user.login %> </div>
+
+				<div class="entry">
+
+				<p><%= blog.cuerpo %></p>
+
+				</div>
+
+
+			<p class="info">Etiquetado como <%=h blog.tag_list %><strong>|</strong>  <%= image_tag 'comments.gif' %><%= blog.comentarios.size.to_s %></p>
+
+			</div>
+
+
+<% end %>
+
+<h2>Modelos encontrados: <%= @modelos.size.to_s %> </h2>
+<br/><br/>
+<% for blog in @modelos %>
+
+			<div class="post" id="post-<%= blog.id%>">
+
+			<h1><%= link_to blog.nombre, :controller=> 'modelos', :action => 'show', :id => blog.id %></a></h1>
+
+			<div class="descr"><%= image_tag 'timeicon.gif'%> <%= blog.updated_at.strftime("%d/%m/%Y a las %H:%M") %> por <%= image_tag 'author.gif'%> <%= blog.user.login %> </div>
+
+				<div class="entry">
+
+				<p><%=h blog.resumen %></p>
+
+				</div>
+
+			<p class="info">Etiquetado como <%=h blog.tag_list %> <strong>|</strong>
+				    <a href="#" onclick="mostrarDireccion('<%= prefijo %>','<%= blog.id.to_s %>', '<%= url_for :controller => 'ejecucion', :action => 'implementacion' %>/');">Ejecutar</a>
+
+<div style="display: none;" id="<%= prefijo %>_div_id_<%= blog.id.to_s %>"></div>
+			
+			</div>
+
+
+<% end %>

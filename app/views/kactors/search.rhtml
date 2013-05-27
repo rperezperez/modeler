@@ -1,0 +1,5 @@
+<ul>
+<% for actor in @actores %>
+<li><%= actor.nombre.to_s %> (<%= actor.nombre.to_s %>): <%= actor.documentacion.to_s %><hr/></li>
+<% end %>
+</ul>

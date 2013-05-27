@@ -1,0 +1,47 @@
+
+			<div class="post" id="post-<%= @tema.id%>">
+
+
+			<h1><a href="#"><%=h @tema.titulo %></a></h1>
+
+			<div class="descr"><%= image_tag 'timeicon.gif'%> <%= @tema.updated_at.strftime("%d/%m/%Y a las %H:%M") %> por <%= image_tag 'author.gif'%> <%= @tema.user.login %> </div>
+
+				<div class="entry">
+
+				<p><%= @tema.cuerpo %></p>
+
+				</div>
+
+			<p class="info">Etiquetado como <%=h @tema.tag_list %>	<strong>|</strong>  <%= image_tag 'comments.gif' %><%= @tema.comentarios.size.to_s %></p>
+
+			</div>
+
+
+
+<% for comment in @tema.comentarios %>
+			<div class="co-content">
+				<cite><span class="comment-icon"><%=h comment.title %></span></cite> Publicado el: <%=h comment.created_at.strftime("%d/%m/%Y a las %H:%M") %>  por <%= image_tag 'author.gif'%> <%=h comment.user.login %><br/>
+				<span class="commentmetadata">
+					<p><%= sanitize(comment.texto) %></p>
+				</span>
+			</div>
+
+<% end %>
+
+<h3>Nuevo comentario</h3>
+<% form_tag({:action => 'insert', :id => @tema} , {:multipart => true, :id => 'comment-form'}) do %>
+
+<div class="form-item">
+<label for="titulo">T&iacute;tulo</label>
+<%= text_field 'comment', 'title'  %></p>
+</div>
+
+<div class="form-item">
+<label for="comentario">Comentario</label>
+<%= fckeditor_text_areaMini 'comment', 'comment', '' %></p>
+</div>
+
+<br/>
+<p><%= submit_tag 'Enviar', :class => 'boton' %></p>
+
+<% end -%>

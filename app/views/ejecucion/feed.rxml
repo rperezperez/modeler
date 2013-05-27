@@ -1,0 +1,42 @@
+xml.instruct! :xml, :version=>"1.0"
+xml.rss "version" => "2.0" do
+ xml.channel do
+   xml.title       "[CEAMA - R_MODELOS] Canal de difusion"
+   xml.link        url_for :only_path => false, :controller => 'account'
+   xml.description "Lista del Repositorio de Modelos, registra la actividad del repositorio."
+
+   @temas.each do |tema|
+     xml.item do
+       xml.title       "[TEMA] "+tema.titulo.to_s
+       xml.author(tema.user.login.to_s)
+       xml.pubDate(tema.created_at.strftime("%d/%m/%Y, a las %H:%M"))
+       xml.link        url_for :only_path => false, :controller => 'temas', :action => 'show', :id => tema.id
+       xml.description tema.cuerpo.to_s
+       xml.guid        url_for :only_path => false, :controller => 'temas', :action => 'show', :id => tema.id
+     end
+   end
+
+   @modelos.each do |modelo|
+     xml.item do
+       xml.title       "[MODELO] "+modelo.nombre.to_s
+       xml.author(modelo.user.login.to_s)
+       xml.pubDate(modelo.created_at.strftime("%d/%m/%Y, a las %H:%M"))
+       xml.link        url_for :only_path => false, :controller => 'modelos', :action => 'show', :id => modelo.id
+       xml.description ""+modelo.resumen.to_s+""
+       xml.guid        url_for :only_path => false, :controller => 'modelos', :action => 'show', :id => modelo.id
+     end
+   end
+
+   @ejecuciones.each do |eje|
+     xml.item do
+       xml.title       "[EJECUCION] "+eje.implementacion.nombre.to_s+" por "+eje.user.login.to_s
+       xml.author(eje.user.login.to_s)
+       xml.pubDate(eje.created_at.strftime("%d/%m/%Y, a las %H:%M"))
+       xml.link        url_for :only_path => false, :controller => 'account'
+       xml.description eje.comentario.to_s
+       xml.guid        url_for :only_path => false, :controller => 'account'
+     end
+   end
+
+ end
+end

@@ -1,0 +1,33 @@
+<div class="barra">
+	<div class="barra_cerrar" onclick="javascript:cerrar();"><a href="#" class='barra_enlace'>Cerrar</a></div>
+</div>
+
+<h1>Seleccione de las implementaciones del modelo: </h1>
+<br/>
+<h3><%=h @modelo.nombre %></h3>
+<br/>
+<br/>
+<table class="tabla_datos" cellspacing="0" cellpadding="0">
+  <tr>
+    <th class="barra_cabecera">Nombre</th>
+    <th class="barra_cabecera">Versi&oacute;n</th>
+    <th class="barra_cabecera" colspan="3">Opciones</th>
+  </tr>
+
+	<% clase = 0 %>
+
+<% for imp in @modelo.implementacions %>
+  <tr>
+    <% clase = clase % 2 %>
+    <td class="barra_activa_<%= clase.to_s %>"><%=h imp.nombre %></td>
+    <td class="barra_activa_<%= clase.to_s %>"><%=h imp.version %></td>
+    <td class="barra_activa_<%= clase.to_s %>">
+    <%= link_to_unless (imp.kepler_servidor_xml == nil , "Ejecutar", :controller => 'ejecucion', :action => 'index', :id => imp.id) %>
+    </td>
+    <td class="barra_activa_<%= clase.to_s %>"><%= link_to "Prototipo", :controller => 'modelos', :action => 'kepler', :id => @modelo.id, :implementacion => imp.id, :browser => determine_browser_and_os %></td>
+    <td class="barra_activa_<%= clase.to_s %>"><%= link_to_unless(imp.kepler_cliente_xml == nil, "Flujo Kepler Cliente", url_for_file_column(imp, :kepler_cliente_xml)) %></td>
+
+    <% clase = clase +1 %>
+  <tr>
+<% end %>
+</table>

@@ -1,0 +1,45 @@
+<% form_tag({:action => 'lanzar'}, {:multipart => true, :class => 'commentform', :id => 'formulario_ventana'}) do %>
+
+<%= hidden_field 'implementacion', 'id', :value => @implementacion.id %>
+
+<h2>Ejecuci&oacute;n de la implementaci&oacute;n: <%= @implementacion.nombre %> por <%= current_user.login %></h2>
+<br/>
+<br/>
+<h3>Resumen</h3>
+<p>
+<%= @implementacion.resumen %>
+</p>
+<br/>
+<br/>
+<h3>Limitaciones</h3>
+<p>
+<%= @implementacion.limitaciones %>
+</p>
+<br/>
+<br/>
+
+<h3>Par&aacute;metros</h3>
+<br/>
+<ul>
+<% @texto.each{ |key, valor| %>
+
+<% if key == 'Path' %>
+	<li><%= key.to_s %> = <%= @Path.to_s %><p>Par&aacute;metro obligatorio para la ejecuci&oacute;n del modelo.</p></li>
+<% else %>
+	<li>
+	<label><%= key.to_s %></label>
+	<input type="text" value=<%= valor.to_s %> name="kepler[<%= key.to_s %>]">
+	<% @parametro = @implementacion.iparametros.find_by_parametro(key) %>
+	<% if @parametro != nil %>
+		<p><%= @parametro.descripcion.to_s %></p>
+	<% end %>
+	</li>
+<% end %>
+
+<% } %>
+
+</ul>
+
+<input type="submit" name="Enviar" value="Ejecutar Modelo">
+
+<% end %>

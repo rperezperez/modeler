@@ -1,0 +1,15 @@
+<%= error_messages_for 'tema' %>
+
+<!--[form:tema]-->
+<div class="form-item"><label for="tema_titulo">Titulo</label><br/>
+<%= text_field_ayuda 'tema', 'titulo'  %></div>
+
+<div class="form-item"><label for="tema_cuerpo">Cuerpo</label><br/>
+<%= fckeditor_text_area 'tema', 'cuerpo', @tema.cuerpo.to_s %></div>
+
+<div class="form-item"><label for="tema_etiquetas">Etiquetas</label><br/>
+<%= text_field 'tema', 'tag_list', :size => '100' %></div>
+
+<!--[eoform:tema]-->
+
+<br/>

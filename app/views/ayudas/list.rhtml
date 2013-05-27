@@ -1,0 +1,26 @@
+<h1>Listing ayudas</h1>
+
+<table>
+  <tr>
+  <% for column in Ayuda.content_columns %>
+    <th><%= column.human_name %></th>
+  <% end %>
+  </tr>
+
+<% for ayuda in @ayudas %>
+  <tr>
+  <% for column in Ayuda.content_columns %>
+    <td><%=h ayuda.send(column.name) %></td>
+  <% end %>
+    <td><%= link_to 'Show', :action => 'show', :id => ayuda %></td>
+    <td><%= link_to 'Edit', :action => 'edit', :id => ayuda %></td>
+    <td><%= link_to 'Destroy', { :action => 'destroy', :id => ayuda }, :confirm => 'Are you sure?', :method => :post %></td>
+  </tr>
+<% end %>
+</table>
+
+<%= will_paginate @ayudas %>
+
+<br />
+
+<%= link_to 'New ayuda', :action => 'new' %>

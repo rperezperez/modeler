@@ -1,0 +1,18 @@
+class Implementacion < ActiveRecord::Base
+  has_and_belongs_to_many :models
+  has_and_belongs_to_many :ientradas
+  has_and_belongs_to_many :iparametros
+  has_and_belongs_to_many :isalidas
+
+  file_column :c_path1
+  file_column :c_path2
+  file_column :t_ejecucion
+
+
+  validates_presence_of :nombre
+
+  def label
+    self.nombre
+  end
+
+end

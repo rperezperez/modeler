@@ -1,0 +1,35 @@
+
+<div class="barra">
+	<div class="barra_cerrar" onclick="javascript:cerrar();"><a href="#" class="barra_enlace">Cerrar</a></div>
+</div>
+
+<% for column in Ikepler.content_columns %>
+<p>
+  <b><%= column.human_name %>:</b> <%=h @ikepler.send(column.name) %>
+</p>
+<% end %>
+
+<table border="1" cellspacing="2px">
+<tr>
+<% for column in Ikepleratributo.content_columns %>
+
+<% if (column.human_name.to_s.index("Created at") == nil) and (column.human_name.to_s.index("Updated at") == nil) %>
+<th><%= column.human_name %></th>
+<% end %>
+
+<% end %>
+</tr>
+<% for atributos in @ikepler.ikepleratributos %>
+<tr>
+<% for column in Ikepleratributo.content_columns %>
+<% if column.human_name.index("Created") == nil and column.human_name.index("Updated") == nil %>
+<td><%=h atributos.send(column.name) %></td>
+<% end %>
+<% end %>
+</tr>
+<% end %>
+</table>
+
+<div class="barra">
+	<div class="barra_cerrar" onclick="javascript:cerrar();"><a href="#" class="barra_enlace">Cerrar</a></div>
+</div>

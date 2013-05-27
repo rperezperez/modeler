@@ -1,0 +1,70 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+<title>Ceama - Repositorio de Modelos</title>
+<meta http-equiv="Content-type" content="text/html; charset=utf-8" />
+<!-- add your meta tags here -->
+
+ <%= stylesheet_link_tag "yaml/my_layout" %>
+
+
+<!--[if lte IE 7]>
+ <%= stylesheet_link_tag "yaml/patches/patch_my_layout" %>
+<![endif]-->
+
+
+<%= javascript_include_tag :defaults %>
+<%= javascript_include_tag "fckeditor" %>
+
+<%= active_scaffold_includes %>
+
+
+  <%= stylesheet_link_tag "estilo" %>
+
+</head>
+<body>
+  <div id="page_margins">
+    <div id="topnav">
+      <!-- start: skip link navigation -->
+      <a class="skip" title="skip link" href="#navigation">Skip to the navigation</a><span class="hideme">.</span>
+      <a class="skip" title="skip link" href="#content">Skip to the content</a><span class="hideme">.</span>
+      <% if (current_user != nil) and (current_user != false) %>
+	      <!-- end: skip link navigation --><%= link_to(current_user.login.to_s+" (Editar)", :controller => 'account', :action => 'change_password') %> | <%= link_to "Salir", :controller => 'account', :action => 'logout' %>
+      <% end %>
+    </div>
+    <div id="page">
+      <div id="header">
+      	<h2>Ceama - Repositorio de Modelos - <span>Beta</span></h2>
+      </div>
+      <div id="nav">
+        <!-- skiplink anchor: navigation -->
+        <a id="navigation" name="navigation"></a>
+        <div>
+
+        <div id="tabsJ">
+  <ul>
+    <li><a href="<%= url_for :controller => 'ientrada', :action => 'index' %>"><span>Entrada/Salida</span></a></li>
+    <li><a href="<%= url_for :controller => 'implementacion', :action => 'index' %>"><span>Implementaciones</span></a></li>
+    <li><a href="<%= url_for :controller => 'modelo', :action => 'index' %>"><span>Modelos</span></a></li>
+
+<!--    <li><a href="<%= url_for :controller => 'search', :action => 'index' %>"><span>Buscar</span></a></li> -->
+<% if current_user.is_admin? %>
+    <li><a href="<%= url_for :controller => 'users', :action => 'index' %>"><span>Gesti&oacute;n Usuarios</span></a></li>
+<% end %>
+  </ul>
+</div>
+
+      </div>
+
+      <div id="main">
+
+<%= @content_for_layout %>
+
+	<div id="footer"><div id="logos"><%= image_tag "logo-ceama.gif" %><%= image_tag "logo-junta.gif" %><%= image_tag "logo-ugr.gif" %></div>
+	</div>
+
+      </div>
+    </div>
+  </div>
+</body>
+</html>

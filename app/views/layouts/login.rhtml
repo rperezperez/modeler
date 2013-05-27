@@ -1,0 +1,50 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+<title>Ceama - Repositorio de Modelos</title>
+<meta http-equiv="Content-type" content="text/html; charset=utf-8" />
+<!-- add your meta tags here -->
+
+ <%= stylesheet_link_tag "yaml/my_layout" %>
+
+
+<!--[if lte IE 7]>
+ <%= stylesheet_link_tag "yaml/patches/patch_my_layout" %>
+<![endif]-->
+
+  <%= stylesheet_link_tag "estilologin" %>
+
+</head>
+<body>
+  <div id="page_margins">
+    <div id="topnav">
+      <!-- start: skip link navigation -->
+      <a class="skip" title="skip link" href="#navigation">Skip to the navigation</a><span class="hideme">.</span>
+      <a class="skip" title="skip link" href="#content">Skip to the content</a><span class="hideme">.</span>
+      <% if (current_user != nil) and (current_user != false) %>
+	      <!-- end: skip link navigation --><%= link_to("Regístrese", :controller => 'account', :action => 'signup') %> | <%= link_to("Indentifíquese", :controller => 'account', :action => 'login') %>
+      <% end %>
+    </div>
+    <div id="page">
+      <div id="header">
+      	<h2>Ceama - Repositorio de Modelos - <span>Beta</span></h2>
+      </div>
+      <div id="nav">
+        <!-- skiplink anchor: navigation -->
+        <a id="navigation" name="navigation"></a>
+        <div>
+
+      </div>
+
+      <div id="main">
+
+<%= @content_for_layout %>
+
+	<div id="footer"><div id="logos"><%= image_tag "logo-ceama.gif" %><%= image_tag "logo-junta.gif" %><%= image_tag "logo-ugr.gif" %></div>
+	</div>
+
+      </div>
+    </div>
+  </div>
+</body>
+</html>

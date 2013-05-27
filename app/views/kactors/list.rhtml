@@ -1,0 +1,55 @@
+	<% prefijo = controller.controller_name+"_"+controller.action_name+"_"+(rand()*100).to_i.to_s %>
+
+<h1>Actores de Kepler para las implementaci&oacute;n</h1>
+
+<div id="<%= prefijo %>_div_id_-1"></div>
+<table id="<%= prefijo %>_la_tabla" class="tabla_datos" cellspacing="0" cellpadding="0">
+  <tr >
+    <th class="barra_cabecera">Nombre</th>
+    <th class="barra_cabecera">Clase</th>
+    <th class="barra_cabecera" colspan="3">Opciones</th>
+  </tr>
+
+	<% clase = 0 %>
+<% for ientrada in @kactors %>
+  <tr id="<%= prefijo %>_tr_id_<%= ientrada.id.to_s %>">
+    <% clase = clase % 2 %>
+    <td class="barra_activa_<%= clase.to_s %>" id="tipo_id_<%= ientrada.id.to_s %>"><%=h ientrada.nombre %></td>
+    <td class="barra_activa_<%= clase.to_s %>" id="formato_id_<%= ientrada.id.to_s %>"><%=h ientrada.clase %></td>
+
+    <td class="barra_activa_<%= clase.to_s %>">
+    <a href="#" onclick="mostrarDireccion('<%= prefijo%>','<%= ientrada.id.to_s %>', '<%= url_for :controller => 'kactors', :action => 'show' %>/');">Mostrar</a></td>
+    <td class="barra_activa_<%= clase.to_s %>">
+
+    </td>
+    <td class="barra_activa_<%= clase.to_s %>">
+
+   	<% if current_user.is_admin? %>
+	    <%= link_to 'Eliminar', { :action => 'destroy', :id => ientrada }, :confirm => 'Estas seguro?', :method => :post %>
+	<% end %>
+
+    </td>
+    <% clase = clase +1 %>
+  </tr>
+  <tr><td colspan="10" style=""><div style="display: none;" id="<%= prefijo %>_div_id_<%= ientrada.id.to_s %>"></div></td></tr>
+<% end %>
+</table>
+
+<%= will_paginate @kactors %>
+
+<br />
+<br />
+<br />
+
+<p>Buscador de actores:&nbsp;
+<%= text_field_tag :buscador, '', :size => 40 %>
+<%= image_tag("indicator.gif", :id => 'search-indicator', :style => 'display:none') %>
+<%= observe_field(:buscador,
+      :update   => :resultados,
+      :frequency => 0.5,
+      :url      => { :action => :search},
+      :loading => "Element.show('search-indicator')",
+      :complete => "Element.hide('search-indicator')") %>
+
+</p>
+<div id="resultados"></div>

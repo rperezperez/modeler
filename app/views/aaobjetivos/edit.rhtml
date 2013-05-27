@@ -1,0 +1,38 @@
+<script type="text/javascript">
+
+function guardar_y_cerrar(){
+	$('formulario_ventana').submit();
+}
+
+</script>
+
+
+<div class="barra">
+	<div class="barra_cerrar" onclick="javascript:cerrar();"><a href="#" class='barra_enlace'>Cerrar</a></div>
+	<div class="barra_guardar" onclick="javascript:guardar_y_cerrar();"><a href="#" class="barra_enlace">Guardar</a></div>
+</div>
+
+<h1>Modificando &Aacute;reas Objetivo</h1>
+
+<% if flash[:notice] != nil %>
+<h3 class="informacion"><%= flash[:notice] %></h3>
+<% end %>
+
+<% form_tag({:action => 'update', :id => @aaobjetivo}, {:multipart => true, :class => 'commentform', :id => 'formulario_ventana'}) do %>
+  <%= render :partial => 'form' %>
+<% end %>
+
+<div class="barra">
+	<div class="barra_cerrar" onclick="javascript:cerrar();"><a href="#" class='barra_enlace'>Cerrar</a></div>
+	<div class="barra_guardar" onclick="javascript:guardar_y_cerrar();"><a href="#" class="barra_enlace">Guardar</a></div>
+</div>
+
+<% if flash[:notice] != nil and flash[:notice].include? "OK." %>
+
+<script type="text/javascript">
+	refrescar("descripcion_id_<%= @aaobjetivo.id %>","aaobjetivo_descripcion");
+	cerrar();
+</script>
+
+<% flash[:notice] = nil %>
+<% end %>

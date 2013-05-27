@@ -1,0 +1,28 @@
+					<span class="error"><%= error_messages_for 'usuario' %></span>
+					<span class="error"><%= flash[:notice] %></span>
+
+
+<% form_tag do -%>
+<br/>
+<br/>
+<br/>
+<p>
+<label for="login">Login</label>
+<%= text_field_tag 'login' %>
+</p>
+
+<p>
+<label for="password">Password</label>
+<%= password_field_tag 'password' %>
+</p>
+
+<!-- Uncomment this if you want this functionality
+<p><label for="remember_me">Remember me:</label>
+<%= check_box_tag 'remember_me' %></p>
+-->
+<p>Pulsa <%= link_to "aqu&iacute;", :controller => 'account', :action => 'signup' %> si no eres usuario registrado.</p>
+<br/>
+<br/>
+<br/>
+<p><%= submit_tag 'Entrar', :class => 'boton' %></p>
+<% end -%>

@@ -1,0 +1,18 @@
+<%= error_messages_for 'exsource' %>
+
+<!--[form:exsource]-->
+<p><label for="exsource_login">Nombre</label><br/>
+<%= text_field 'exsource', 'nombre'  %></p>
+
+<p><label for="exsource_email">URL del listado de EMLs</label><br/>
+<%= text_field 'exsource', 'url'  %></p>
+
+
+<p><label for="exsource_created_at">Created at: <%= @exsource.created_at.strftime("%d-%m-%Y") if @exsource.created_at != nil %></label><br/>
+</p>
+
+<p><label for="exsource_updated_at">Updated at: <%= @exsource.updated_at.strftime("%d-%m-%Y") if @exsource.updated_at != nil %></label><br/>
+</p>
+
+<!--[eoform:exsource]-->
+

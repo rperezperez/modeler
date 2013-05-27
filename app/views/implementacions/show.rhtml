@@ -1,0 +1,18 @@
+<div class="barra">
+	<div class="barra_cerrar" onclick="javascript:cerrar();"><a href="#" class='barra_enlace'>Cerrar</a></div>
+</div>
+
+<% for column in Implementacion.content_columns %>
+<p>
+  <b><%= column.human_name %>:</b> <%=h @implementacion.send(column.name) %>
+</p>
+<% end %>
+
+<!-- <iframe class="ventana" width='100%' height='100%' src="<%= url_for :controller => 'ientradas', :action => 'listado', :id => @implementacion.id, :nuevo => false %>" -->
+
+<%= render :partial => 'ientradas/listado_ientrada', :locals => {:ientradas => @implementacion.ientradas, :id => @implementacion.id, :nombre => @implementacion.nombre, :nuevo => false} %>
+<%= render :partial => 'ientradas/listado_isalida', :locals => {:ientradas => @implementacion.isalidas, :id => @implementacion.id, :nombre => @implementacion.nombre, :nuevo => false} %>
+
+<div class="barra">
+	<div class="barra_cerrar" onclick="javascript:cerrar();"><a href="#" class='barra_enlace'>Cerrar</a></div>
+</div>

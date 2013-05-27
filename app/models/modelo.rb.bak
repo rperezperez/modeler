@@ -1,0 +1,37 @@
+class Modelo < ActiveRecord::Base
+
+file_column :path1, :web_root => "metadatos/"
+file_column :path2, :web_root => "metadatos/"
+file_column :path3, :web_root => "metadatos/"
+file_column :path4, :web_root => "metadatos/"
+file_column :mapa_conceptual, , :web_root => "metadatos/", :magick => {
+          :versions => { "thumb" => "50x50", "medium" => "640x480>" }
+        }
+
+  has_and_belongs_to_many :autors, :uniq => true
+
+  has_and_belongs_to_many :bbasicas, :class_name => 'Bibliografia'
+  has_and_belongs_to_many :bcomplementarias, :class_name => 'Bibliografia', :join_table => 'bcomplementarias_modelos'
+
+  has_and_belongs_to_many :aagestions
+  has_and_belongs_to_many :aaobjetivos
+  has_and_belongs_to_many :aambitos
+  has_and_belongs_to_many :aaplicacions
+
+  has_and_belongs_to_many :limitacions
+
+  has_and_belongs_to_many :implementacions, :uniq => true
+
+  has_and_belongs_to_many :mnecesarias, :class_name => 'Modificar'
+  has_and_belongs_to_many :mrecomendadas, :class_name => 'Modificar'
+
+  validates_uniqueness_of :acronimo, :nombre
+
+
+  def label
+    self.acronimo
+  end
+
+
+
+end

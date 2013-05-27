@@ -1,0 +1,46 @@
+	<% prefijo = controller.controller_name+"_"+controller.action_name+"_"+(rand()*100).to_i.to_s %>
+
+<h1>Listado de Fuentes Externas</h1>
+
+<a href="#" onclick="mostrarDireccion('<%= prefijo%>','-1', '<%= url_for :controller => 'modelos', :action => 'new' %>/');">Nueva fuente</a>
+<div id="<%= prefijo %>_div_id_-1"></div>
+<table id="<%= prefijo %>_la_tabla" class="tabla_datos" cellspacing="0" cellpadding="0">
+  <tr>
+    <th class="barra_cabecera">Nombre</th>
+    <th class="barra_cabecera">URL</th>
+    <th class="barra_cabecera">&Uacute;ltimo acceso</th>
+    <th class="barra_cabecera" colspan="4">Opciones</th>
+  </tr>
+
+	<% clase = 0 %>
+
+<% for ientrada in @exsource %>
+  <tr id="<%= prefijo %>_tr_id_<%= ientrada.id.to_s %>">
+    <% clase = clase % 2 %>
+    <td class="barra_activa_<%= clase.to_s %>" id="acronimo_id_<%= ientrada.id.to_s %>"><%=h ientrada.nombre %></td>
+    <td class="barra_activa_<%= clase.to_s %>" id="nombre_id_<%= ientrada.id.to_s %>"><%=h ientrada.url %></td>
+    <td class="barra_activa_<%= clase.to_s %>" id="updated_at_id_<%= ientrada.id.to_s %>"><%=h ientrada.updated_at.strftime("%d/%m/%Y, %H:%M") %></td>
+
+    <td class="barra_activa_<%= clase.to_s %>">
+    <a href="#" onclick="mostrarDireccion('<%= prefijo%>','<%= ientrada.id.to_s %>', '<%= url_for :controller => 'externalsources', :action => 'show' %>/');">Mostrar</a>
+    </td>
+
+    <td class="barra_activa_<%= clase.to_s %>">
+
+	    <a href="#" onclick="mostrarDireccion('<%= prefijo%>','<%= ientrada.id.to_s %>', '<%= url_for :controller => 'externalsources', :action => 'edit' %>/');">Modificar</a>
+
+    </td>
+    <td class="barra_activa_<%= clase.to_s %>">
+
+	    <%= link_to 'Eliminar', { :action => 'destroy', :id => ientrada }, :confirm => 'Estas seguro?', :method => :post %>
+
+    </td>
+    <% clase = clase +1 %>
+  </tr>
+  <tr><td colspan="10" style=""><div style="display: none;" id="<%= prefijo %>_div_id_<%= ientrada.id.to_s %>"></div></td></tr>
+<% end %>
+</table>
+
+<%= will_paginate @exsource %>
+
+<br />
