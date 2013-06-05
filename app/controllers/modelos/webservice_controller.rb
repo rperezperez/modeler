@@ -23,7 +23,7 @@ class Modelos::WebserviceController < ApplicationController
     @modelo = Modelo.find(:first, :conditions => ["acronimo = ?", acronimo])
     
     if @modelo != nil
-      render :xml => @modelo.to_xml(:include => {:autors => {}, :bbasicas => {}, :bcomplementarias => {}, :implementacions => {:include => {:ientradas => {}, :isalidas => {}}}})
+      render :xml => @modelo.to_xml(:include => {:autors => {}, :bbasicas => {}, :bcomplementarias => {}, :implementacions => {:include => {:ientradas => {}, :iparametros => {}, :isalidas => {}}}})
     else
       render :text => "<error><description>No existe el modelo solicitado</description></error>"
     end
